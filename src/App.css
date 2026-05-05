@@ -1,0 +1,48 @@
+/* Arrow icon */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px;
+  font-weight: bold;
+  color: #f97316;
+}
+
+/* Button style */
+.swiper-button-next,
+.swiper-button-prev {
+  background: rgba(255, 255, 255, 0.95);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #f97316;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #f97316;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: white;
+}
+
+/* Position slightly outside */
+.swiper-button-prev {
+  left: -10px;
+}
+
+.swiper-button-next {
+  right: -10px;
+}
+
+/* Hide on mobile */
+@media (max-width: 640px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+}
