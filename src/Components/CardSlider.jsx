@@ -8,7 +8,7 @@ export default function CardSlider({ items, renderCard }) {
   return (
     <div className="relative w-full">
       <Swiper
-        modules={[Navigation, Autoplay]}
+        modules={[Autoplay]}
         spaceBetween={12}
         navigation
         autoplay={{

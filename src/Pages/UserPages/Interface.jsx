@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, ChevronRight } from "lucide-react";
 import ProductCard from "../../Components/ProductCard";
 import CardSlider from "../../Components/CardSlider";
-
+import CategorySlider from "../../Components/CategorySlider";
+import CategoryGrid from "../../Components/CategoryGrid";
 export default function Interface() {
   const texts = [
     "Search Pizza, Burger...",
@@ -11,6 +12,7 @@ export default function Interface() {
   ];
 
   const [index, setIndex] = useState(0);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,33 +27,75 @@ export default function Interface() {
       id: 1,
       pname: "Farmhouse Pizza",
       price: 300,
+      ingredient: ["Capsicum", "Corn"],
       pimg: "https://jambubakers.com/wp-content/uploads/2023/07/pizza.png",
     },
     {
       id: 2,
       pname: "Burger Meal Combo ",
       price: 500,
+      ingredient: ["Burger", "Beverage"],
       pimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTXJgILZBjEU3_bZOCwqgFBXSdvaSBv9UGpCiiXmX8sVsYyAnIoZ0HVjfsqzCLEI6L3OjMP2Euwi4VS3k5G1JABOn8Hvtc-AXfJYi8-oqh1LpFt2fL-2JxQ",
     },
     {
       id: 3,
       pname: "Oreo Shake",
       price: 190,
+      ingredient: ["Chilled", "Oreo"],
       pimg: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT1ngCA5FmzOFGRAVjFIvql2uI9Hh_fQAj4UcuFAvYxxOXm0sxRamRMPZUvkL_lXg4o5ZmL8Y60wMXSRYJZerTXijAJx8LNQg",
     },
     {
       id: 4,
       pname: "Cheese Sandwich",
-      price:200,
+      price: 200,
+      ingredient: ["Trending", "Cheesy"],
       pimg: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR8fRHT_WBos-u0SaA09keNhaXzMlxwL506Fs4P8UZrph-UVv306prlM3W6q6nCBxW9DeZKA9DWAcet3bViFKzHf0dqXnV4C7pI1kiAXnTDXskX5kqYxLv-",
     },
     {
-      id:5,
-      pname:" Veg Frankie",
-      price:120,
-      pimg:"https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTqrVJZyZGjkrB-pFAW_embNx6kR816NrmIbNDglP7LRZ4JFZVjBlWU7f0pDzRx-QgBZbpYBIQj0Shx5W8up-hL0Bbw_QZPekWzmH_tn_Lg"
+      id: 5,
+      pname: " Veg Frankie",
+      price: 120,
+      ingredient: ["Veggie", "Tasteful"],
+      pimg: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTqrVJZyZGjkrB-pFAW_embNx6kR816NrmIbNDglP7LRZ4JFZVjBlWU7f0pDzRx-QgBZbpYBIQj0Shx5W8up-hL0Bbw_QZPekWzmH_tn_Lg",
+    },
+  ];
 
-    }
+  const categories = [
+    {
+      id: 1,
+      cname: "Pizza",
+      cimg: "https://image.cdn.shpy.in/360704/cheeseburstpizza-1717657411053.jpeg?format=webp",
+    },
+    {
+      id: 2,
+      cname: "Burger",
+      cimg: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQyhPtYH6NPsve0NH7qV4f7qyDvZk89ASN1Q__PsjwdfMkIx-2OS5cAeWA9odUljQV_HZuL5S8G83CrsmtgbVkjsAMUGaJF3EZcjjQ22yPPtlma6Iz7vrY-Q8w",
+    },
+    {
+      id: 3,
+      cname: "Drinks",
+      cimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRGuQByL9wSLdPpVEzHroHT18anb5YL905ITpIC_iETN0dXGA_SmHl4CKwfMSL1YIdjkLLNlGyZWPOjIpufsXl598N0UkEmfA",
+    },
+    {
+      id: 4,
+      cname: "Sandwich",
+      cimg: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRRP7SxV7l0mtU3aXzqCJ4B-r8wkWX3tgkMuDXuuZxhODqCFQ1LswghamkqERZEg8SMhjwdDPTGXiM6dtQk8BJiCSU5feu4",
+    },
+    {
+      id: 5,
+      cname: "Dessert",
+      cimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTfRiNVsnrzwy--6scLC7iEFnP2cDDSpJE2ffOg2iKPMbNeyHtF_p1Zes4L0xgFBCrr4ilSnO-WXbGeiIjvvgp-RBPibofvc9CrYVK05u16VV2hPK0vbQW5Ub4",
+    },
+    {
+      id: 6,
+      cname: "Rolls",
+      cimg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnpZHbAUek6Qtw6_Xoc_rx1MrlzryTxpTA8g&s",
+    },
+    {
+      id: 7,
+      cname: "Thali",
+      cimg: "https://png.pngtree.com/png-clipart/20241221/original/pngtree-indian-thali-png-image_18122295.png",
+    },
   ];
 
   return (
@@ -86,6 +130,11 @@ export default function Interface() {
             renderCard={(item) => <ProductCard data={item} />}
           />
         </div>
+        {!showAll ? (
+          <CategorySlider categories={categories} setShowAll={setShowAll} />
+        ) : (
+          <CategoryGrid categories={categories} setShowAll={setShowAll} />
+        )}
       </div>
     </div>
   );
