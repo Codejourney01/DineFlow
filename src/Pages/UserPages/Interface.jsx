@@ -4,6 +4,7 @@ import ProductCard from "../../Components/ProductCard";
 import CardSlider from "../../Components/CardSlider";
 import CategorySlider from "../../Components/CategorySlider";
 import CategoryGrid from "../../Components/CategoryGrid";
+import PopularSection from "../../Components/PopularSection";
 export default function Interface() {
   const texts = [
     "Search Pizza, Burger...",
@@ -28,12 +29,14 @@ export default function Interface() {
       pname: "Farmhouse Pizza",
       price: 300,
       ingredient: ["Capsicum", "Corn"],
+      popular:true,
       pimg: "https://jambubakers.com/wp-content/uploads/2023/07/pizza.png",
     },
     {
       id: 2,
       pname: "Burger Meal Combo ",
       price: 500,
+      popular:false,
       ingredient: ["Burger", "Beverage"],
       pimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTXJgILZBjEU3_bZOCwqgFBXSdvaSBv9UGpCiiXmX8sVsYyAnIoZ0HVjfsqzCLEI6L3OjMP2Euwi4VS3k5G1JABOn8Hvtc-AXfJYi8-oqh1LpFt2fL-2JxQ",
     },
@@ -41,6 +44,7 @@ export default function Interface() {
       id: 3,
       pname: "Oreo Shake",
       price: 190,
+      popular:true,
       ingredient: ["Chilled", "Oreo"],
       pimg: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT1ngCA5FmzOFGRAVjFIvql2uI9Hh_fQAj4UcuFAvYxxOXm0sxRamRMPZUvkL_lXg4o5ZmL8Y60wMXSRYJZerTXijAJx8LNQg",
     },
@@ -48,6 +52,7 @@ export default function Interface() {
       id: 4,
       pname: "Cheese Sandwich",
       price: 200,
+      popular:true,
       ingredient: ["Trending", "Cheesy"],
       pimg: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR8fRHT_WBos-u0SaA09keNhaXzMlxwL506Fs4P8UZrph-UVv306prlM3W6q6nCBxW9DeZKA9DWAcet3bViFKzHf0dqXnV4C7pI1kiAXnTDXskX5kqYxLv-",
     },
@@ -55,8 +60,32 @@ export default function Interface() {
       id: 5,
       pname: " Veg Frankie",
       price: 120,
+      popular:false,
       ingredient: ["Veggie", "Tasteful"],
       pimg: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTqrVJZyZGjkrB-pFAW_embNx6kR816NrmIbNDglP7LRZ4JFZVjBlWU7f0pDzRx-QgBZbpYBIQj0Shx5W8up-hL0Bbw_QZPekWzmH_tn_Lg",
+    },{
+      id: 6,
+      pname: "Masala Dosa",
+      price: 140,
+      popular:true,
+      ingredient: ["South", "Tasteful"],
+      pimg: "https://i0.wp.com/www.chitrasfoodbook.com/wp-content/uploads/2016/06/mysore-masala-dosa-recipe.jpg?w=1200&ssl=1",
+    },
+    ,{
+      id: 7,
+      pname: "Steam Momos",
+      price: 120,
+      popular:true,
+      ingredient: ["Chinese", "Tasteful"],
+      pimg: "https://png.pngtree.com/png-clipart/20250117/original/pngtree-perfectly-arranged-steamed-momos-with-chutney-png-image_20263467.png",
+    },
+    ,{
+      id: 8,
+      pname: "Manchurain Dry",
+      price: 140,
+      popular:true,
+      ingredient: ["Chinese", "Spicy"],
+      pimg: "https://png.pngtree.com/png-vector/20250423/ourmid/pngtree-spicy-chicken-manchurian-for-asian-cuisine-and-restaurant-menu-design-png-image_16089305.png",
     },
   ];
 
@@ -97,6 +126,8 @@ export default function Interface() {
       cimg: "https://png.pngtree.com/png-clipart/20241221/original/pngtree-indian-thali-png-image_18122295.png",
     },
   ];
+  const popularitems=data.filter(item => item.popular);
+
 
   return (
     <div className="w-full flex items-center justify-center h-dvh md:h-[600px]">
@@ -135,7 +166,12 @@ export default function Interface() {
         ) : (
           <CategoryGrid categories={categories} setShowAll={setShowAll} />
         )}
+        <div className="max-w-[95%] w-full px-2 pt-1 md:pt-3">
+
+        <PopularSection items={popularitems} />
+        </div>
       </div>
+
     </div>
   );
 }
