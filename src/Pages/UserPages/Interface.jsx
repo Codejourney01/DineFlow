@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Search, ChevronRight } from "lucide-react";
+import { Search } from "lucide-react";
+
 import ProductCard from "../../Components/ProductCard";
 import CardSlider from "../../Components/CardSlider";
 import CategorySlider from "../../Components/CategorySlider";
 import CategoryGrid from "../../Components/CategoryGrid";
 import PopularSection from "../../Components/PopularSection";
+
 export default function Interface() {
   const texts = [
     "Search Pizza, Burger...",
@@ -14,6 +16,7 @@ export default function Interface() {
 
   const [index, setIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,14 +32,14 @@ export default function Interface() {
       pname: "Farmhouse Pizza",
       price: 300,
       ingredient: ["Capsicum", "Corn"],
-      popular:true,
+      popular: true,
       pimg: "https://jambubakers.com/wp-content/uploads/2023/07/pizza.png",
     },
     {
       id: 2,
-      pname: "Burger Meal Combo ",
+      pname: "Burger Meal Combo",
       price: 500,
-      popular:true,
+      popular: true,
       ingredient: ["Burger", "Beverage"],
       pimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTXJgILZBjEU3_bZOCwqgFBXSdvaSBv9UGpCiiXmX8sVsYyAnIoZ0HVjfsqzCLEI6L3OjMP2Euwi4VS3k5G1JABOn8Hvtc-AXfJYi8-oqh1LpFt2fL-2JxQ",
     },
@@ -44,7 +47,7 @@ export default function Interface() {
       id: 3,
       pname: "Oreo Shake",
       price: 190,
-      popular:true,
+      popular: true,
       ingredient: ["Chilled", "Oreo"],
       pimg: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT1ngCA5FmzOFGRAVjFIvql2uI9Hh_fQAj4UcuFAvYxxOXm0sxRamRMPZUvkL_lXg4o5ZmL8Y60wMXSRYJZerTXijAJx8LNQg",
     },
@@ -52,38 +55,39 @@ export default function Interface() {
       id: 4,
       pname: "Cheese Sandwich",
       price: 200,
-      popular:true,
+      popular: true,
       ingredient: ["Trending", "Cheesy"],
       pimg: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR8fRHT_WBos-u0SaA09keNhaXzMlxwL506Fs4P8UZrph-UVv306prlM3W6q6nCBxW9DeZKA9DWAcet3bViFKzHf0dqXnV4C7pI1kiAXnTDXskX5kqYxLv-",
     },
     {
       id: 5,
-      pname: " Veg Frankie",
+      pname: "Veg Frankie",
       price: 120,
-      popular:true,
+      popular: true,
       ingredient: ["Veggie", "Tasteful"],
       pimg: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTqrVJZyZGjkrB-pFAW_embNx6kR816NrmIbNDglP7LRZ4JFZVjBlWU7f0pDzRx-QgBZbpYBIQj0Shx5W8up-hL0Bbw_QZPekWzmH_tn_Lg",
-    },{
+    },
+    {
       id: 6,
       pname: "Masala Dosa",
       price: 140,
-      popular:true,
+      popular: true,
       ingredient: ["South", "Tasteful"],
       pimg: "https://i0.wp.com/www.chitrasfoodbook.com/wp-content/uploads/2016/06/mysore-masala-dosa-recipe.jpg?w=1200&ssl=1",
     },
-    ,{
+    {
       id: 7,
       pname: "Steam Momos",
       price: 120,
-      popular:true,
+      popular: true,
       ingredient: ["Chinese", "Tasteful"],
       pimg: "https://png.pngtree.com/png-clipart/20250117/original/pngtree-perfectly-arranged-steamed-momos-with-chutney-png-image_20263467.png",
     },
-    ,{
+    {
       id: 8,
-      pname: "Manchurain Dry",
+      pname: "Manchurian Dry",
       price: 140,
-      popular:true,
+      popular: true,
       ingredient: ["Chinese", "Spicy"],
       pimg: "https://png.pngtree.com/png-vector/20250423/ourmid/pngtree-spicy-chicken-manchurian-for-asian-cuisine-and-restaurant-menu-design-png-image_16089305.png",
     },
@@ -126,52 +130,65 @@ export default function Interface() {
       cimg: "https://png.pngtree.com/png-clipart/20241221/original/pngtree-indian-thali-png-image_18122295.png",
     },
   ];
-  const popularitems=data.filter(item => item.popular);
 
+  const filteredData = data.filter((item) =>
+    item.pname.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  const popularitems = data.filter((item) => item.popular);
 
   return (
     <div className="w-full flex items-center justify-center h-dvh md:h-[600px]">
       <div className="md:max-w-[95%] w-full flex flex-col items-center h-full">
+        {/* SEARCH */}
         <div className="max-w-[95%] w-full pt-5 relative">
           <Search className="text-orange-400 absolute left-3 top-8 w-5 h-5" />
 
           <input
             type="text"
-            className="w-full h-10 px-12 md:px-10 rounded-lg border border-gray-300 shadow-sm shadow-gray-100  focus:outline-orange-300"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={texts[index]}
+            className="w-full h-10 px-12 md:px-10 rounded-lg border border-gray-300 shadow-sm shadow-gray-100 placeholder:text-gray-400 placeholder:text-sm focus:outline-orange-300 transition-all duration-500"
           />
-
-          <div className="absolute left-12 top-8 text-gray-400 text-sm pointer-events-none transition-all duration-500">
-            {texts[index]}
-          </div>
         </div>
-        {/* Heading Part  */}
+
+        {/* HEADING */}
         <div className="max-w-[95%] w-full pt-8 px-2">
           <h2 className="font-semibold text-orange-400 text-xl font-[Poppins]">
-            Welcome to DineFlow{" "}
+            Welcome to DineFlow
           </h2>
+
           <h4 className="text-gray-400 text-sm pt-1">
-            No waiting — just tasty ordering made simple.{" "}
+            No waiting — just tasty ordering made simple.
           </h4>
         </div>
 
-        {/* Slider Part 1 */}
+        {/* SLIDER */}
         <div className="max-w-[95%] w-full px-2 pt-12 md:pt-10">
           <CardSlider
-            items={data}
+            items={filteredData}
             renderCard={(item) => <ProductCard data={item} />}
           />
         </div>
+        {filteredData.length === 0 && (
+          <div className="w-full flex justify-center pt-10">
+            <h2 className="text-gray-400 text-lg">No food items found 🍕</h2>
+          </div>
+        )}
+
+        {/* CATEGORY */}
         {!showAll ? (
           <CategorySlider categories={categories} setShowAll={setShowAll} />
         ) : (
           <CategoryGrid categories={categories} setShowAll={setShowAll} />
         )}
-        <div className="max-w-[95%] w-full px-2 pt-1 md:pt-3">
 
-        <PopularSection items={popularitems} />
+        {/* POPULAR */}
+        <div className="max-w-[95%] w-full px-2 pt-1 md:pt-3">
+          <PopularSection items={popularitems} />
         </div>
       </div>
-
     </div>
   );
 }

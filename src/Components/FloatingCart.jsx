@@ -11,7 +11,7 @@ export default function FloatingCart() {
   const { cartItems } = useCart();
 
   // HIDE ON CHECKOUT PAGE
-  if (location.pathname === "/checkout") {
+  if (location.pathname === "/checkout" || location.pathname==="/") {
     return null;
   }
 
