@@ -1,5 +1,3 @@
-// ORDER PAGE
-
 import React from "react";
 import {
   ChevronLeft,
@@ -10,10 +8,85 @@ import {
 } from "lucide-react";
 
 import CartRow from "../../Components/CartRow";
+import { useCart } from "../../CartProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function Order() {
+
   const navigate = useNavigate();
+
+  const { cartItems } = useCart();
+
+  // SUBTOTAL
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * item.qty,
+    0
+  );
+
+  // FEES
+  const deliveryFee = subtotal > 0 ? 40 : 0;
+
+  const gst = Math.floor(subtotal * 0.05);
+
+  const platformFee = subtotal > 0 ? 12 : 0;
+
+  // TOTAL
+  const total =
+    subtotal +
+    deliveryFee +
+    gst +
+    platformFee;
+
+  // TOTAL ITEMS
+  const totalItems = cartItems.reduce(
+    (acc, item) => acc + item.qty,
+    0
+  );
+
+  // EMPTY CART
+  if (cartItems.length === 0) {
+    return (
+      <div className="w-full min-h-screen bg-[#f8f8f8] flex items-center justify-center px-4">
+
+        <div className="max-w-[400px] w-full bg-white border border-gray-200 rounded-3xl p-8 shadow-sm text-center">
+
+          {/* IMAGE */}
+          <div className="w-28 h-28 mx-auto">
+
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+              alt="Empty Cart"
+              className="w-full h-full object-contain"
+            />
+
+          </div>
+
+          {/* TITLE */}
+          <h2 className="text-2xl font-bold text-gray-800 pt-6 font-poppins">
+            Your cart is empty
+          </h2>
+
+          {/* SUBTEXT */}
+          <p className="text-sm text-gray-500 pt-3 leading-6">
+
+            Looks like you haven’t added anything yet.
+            Explore delicious meals and start ordering.
+
+          </p>
+
+          {/* BUTTON */}
+          <button
+            onClick={() => navigate("/menu")}
+            className="w-full h-[50px] mt-7 rounded-2xl bg-orange-500 hover:bg-orange-600 transition text-white font-semibold shadow-sm"
+          >
+            Browse Menu
+          </button>
+
+        </div>
+
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen bg-[#f8f8f8]">
@@ -30,10 +103,14 @@ export default function Order() {
               onClick={() => navigate("/menu")}
               className="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center shadow-sm hover:bg-orange-50 transition"
             >
-              <ChevronLeft size={18} className="text-orange-500" />
+              <ChevronLeft
+                size={18}
+                className="text-orange-500"
+              />
             </button>
 
             <div>
+
               <h2 className="text-xl md:text-2xl font-semibold font-poppins text-gray-900">
                 Checkout
               </h2>
@@ -41,6 +118,7 @@ export default function Order() {
               <p className="text-xs text-gray-500 pt-[2px]">
                 Review your order
               </p>
+
             </div>
 
           </div>
@@ -49,17 +127,24 @@ export default function Order() {
           <div className="hidden sm:flex items-center gap-2 bg-white border border-gray-200 px-3 py-2 rounded-xl shadow-sm">
 
             <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
-              <Receipt size={16} className="text-orange-500" />
+
+              <Receipt
+                size={16}
+                className="text-orange-500"
+              />
+
             </div>
 
             <div>
+
               <h4 className="text-sm font-semibold text-gray-800">
-                3 Items
+                {totalItems} Items
               </h4>
 
               <p className="text-[11px] text-gray-500">
                 Ready to order
               </p>
+
             </div>
 
           </div>
@@ -72,9 +157,12 @@ export default function Order() {
           {/* CART */}
           <div className="flex-1 flex flex-col gap-4">
 
-            <CartRow />
-            <CartRow />
-            <CartRow />
+            {cartItems.map((item) => (
+              <CartRow
+                key={item.id}
+                item={item}
+              />
+            ))}
 
           </div>
 
@@ -87,6 +175,7 @@ export default function Order() {
               <div className="flex items-start justify-between">
 
                 <div>
+
                   <h2 className="text-lg font-semibold font-poppins text-gray-900">
                     Bill Details
                   </h2>
@@ -94,10 +183,16 @@ export default function Order() {
                   <p className="text-xs text-gray-500 pt-1">
                     Fast & secure payment
                   </p>
+
                 </div>
 
                 <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center">
-                  <Wallet size={18} className="text-orange-500" />
+
+                  <Wallet
+                    size={18}
+                    className="text-orange-500"
+                  />
+
                 </div>
 
               </div>
@@ -108,6 +203,7 @@ export default function Order() {
                 <div className="flex items-center justify-between">
 
                   <div>
+
                     <p className="text-[11px] opacity-90">
                       Delivery Time
                     </p>
@@ -115,10 +211,13 @@ export default function Order() {
                     <h3 className="text-lg font-semibold pt-1">
                       15 - 20 Min
                     </h3>
+
                   </div>
 
                   <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+
                     <Clock2 size={18} />
+
                   </div>
 
                 </div>
@@ -129,43 +228,51 @@ export default function Order() {
               <div className="pt-5 flex flex-col gap-4">
 
                 <div className="flex items-center justify-between text-sm">
+
                   <span className="text-gray-500">
                     Subtotal
                   </span>
 
                   <span className="font-medium text-gray-800">
-                    ₹1197
+                    ₹{subtotal}
                   </span>
+
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
+
                   <span className="text-gray-500">
                     Delivery Fee
                   </span>
 
                   <span className="font-medium text-gray-800">
-                    ₹40
+                    ₹{deliveryFee}
                   </span>
+
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
+
                   <span className="text-gray-500">
                     GST & Taxes
                   </span>
 
                   <span className="font-medium text-gray-800">
-                    ₹89
+                    ₹{gst}
                   </span>
+
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
+
                   <span className="text-gray-500">
                     Platform Fee
                   </span>
 
                   <span className="font-medium text-gray-800">
-                    ₹12
+                    ₹{platformFee}
                   </span>
+
                 </div>
 
               </div>
@@ -177,6 +284,7 @@ export default function Order() {
               <div className="flex items-center justify-between">
 
                 <div>
+
                   <h3 className="text-base font-semibold text-gray-900">
                     Total Pay
                   </h3>
@@ -184,10 +292,11 @@ export default function Order() {
                   <p className="text-[11px] text-green-600 pt-1">
                     Inclusive of all taxes
                   </p>
+
                 </div>
 
                 <h2 className="text-2xl font-bold text-orange-500">
-                  ₹1338
+                  ₹{total}
                 </h2>
 
               </div>
@@ -202,7 +311,10 @@ export default function Order() {
               {/* SECURITY */}
               <div className="w-full flex items-center justify-center gap-2 pt-4">
 
-                <ShieldCheck size={14} className="text-green-500" />
+                <ShieldCheck
+                  size={14}
+                  className="text-green-500"
+                />
 
                 <p className="text-[11px] text-gray-500">
                   100% Secure Payment

@@ -1,8 +1,11 @@
 import React from "react";
 import { IndianRupee } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
+
+import { useCart } from "../CartProvider";
+
 export default function ProductCard({ data }) {
-    const navigate=useNavigate();
+
+    const { addToCart } = useCart();
   return (
     <div className="md:max-w-[280px] w-full md:h-[300px] shadow-sm shadow-gray-300 max-w-[160px] h-[232px]">
       <div className=" md:pt-14 md:h-[130px] h-[120px]  w-full flex items-center justify-center object-cover">
@@ -34,7 +37,7 @@ export default function ProductCard({ data }) {
         </div>
       </div>
       <div className="max-w-[100%] w-full h-[30px] flex items-center justify-center pt-2 ">
-        <button onClick={()=>{navigate('/checkout')}} className="w-[90%] h-full bg-orange-400 text-[12px] text-white rounded-sm ">
+        <button   onClick={() => addToCart(data)} className="w-[90%] h-full bg-orange-400 text-[12px] text-white rounded-sm ">
           Add To Meal{" "}
         </button>
       </div>
