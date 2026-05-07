@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ChevronLeft,
   ShieldCheck,
   Receipt,
   Wallet,
   Clock2,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 import CartRow from "../../Components/CartRow";
@@ -16,6 +18,9 @@ export default function Order() {
   const navigate = useNavigate();
 
   const { cartItems } = useCart();
+
+  // SHOW / HIDE TERMS
+  const [showTerms, setShowTerms] = useState(false);
 
   // SUBTOTAL
   const subtotal = cartItems.reduce(
@@ -154,15 +159,207 @@ export default function Order() {
         {/* MAIN */}
         <div className="w-full flex flex-col lg:flex-row gap-5 pt-5 md:px-3">
 
-          {/* CART */}
-          <div className="flex-1 flex flex-col gap-4">
+          {/* LEFT SIDE */}
+          <div className="flex-1 flex flex-col gap-5">
 
-            {cartItems.map((item) => (
-              <CartRow
-                key={item.id}
-                item={item}
-              />
-            ))}
+            {/* CART */}
+            <div className="flex flex-col gap-4">
+
+              {cartItems.map((item) => (
+                <CartRow
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+
+            </div>
+
+            {/* COUPON SECTION */}
+            <div className="max-w-[800px] w-full bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+
+              {/* HEADER */}
+              <div className="w-full p-5 border-b border-gray-100 flex items-center gap-3">
+
+                <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center">
+
+                  <Receipt
+                    size={18}
+                    className="text-orange-500"
+                  />
+
+                </div>
+
+                <div>
+
+                  <h2 className="text-lg md:text-xl font-semibold text-gray-900 font-poppins">
+                    Apply Coupon
+                  </h2>
+
+                  <p className="text-xs text-gray-500 pt-1">
+                    Enter your coupon code to get discount
+                  </p>
+
+                </div>
+
+              </div>
+
+              {/* BODY */}
+              <div className="p-5">
+
+                <div className="w-full flex flex-col sm:flex-row gap-3">
+
+                  {/* INPUT */}
+                  <input
+                    type="text"
+                    placeholder="Enter coupon code"
+                    className="flex-1 h-[50px] py-4 md:py-0 px-4 rounded-xl border border-gray-200 outline-none focus:border-orange-400 text-sm transition"
+                  />
+
+                  {/* BUTTON */}
+                  <button className="sm:w-[140px] w-full h-[50px] rounded-xl bg-orange-500 hover:bg-orange-600 transition text-white text-sm font-semibold shadow-sm">
+
+                    Apply Coupon
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* TERMS & CONDITIONS */}
+            <div className="max-w-[800px] w-full bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+
+              {/* HEADER */}
+              <button
+                onClick={() => setShowTerms(!showTerms)}
+                className="w-full p-5 flex items-center justify-between hover:bg-orange-50 transition"
+              >
+
+                <div className="flex items-center gap-3">
+
+                  <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center">
+
+                    <ShieldCheck
+                      size={18}
+                      className="text-orange-500"
+                    />
+
+                  </div>
+
+                  <div className="text-left">
+
+                    <h2 className="text-lg md:text-xl font-semibold text-gray-900 font-poppins">
+                      Terms & Conditions
+                    </h2>
+
+                    <p className="text-xs text-gray-500 pt-1">
+                      Please read before placing your order
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div>
+
+                  {showTerms ? (
+                    <ChevronUp
+                      size={20}
+                      className="text-gray-500"
+                    />
+                  ) : (
+                    <ChevronDown
+                      size={20}
+                      className="text-gray-500"
+                    />
+                  )}
+
+                </div>
+
+              </button>
+
+              {/* TERMS CONTENT */}
+              {showTerms && (
+
+                <div className="px-5 pb-5 flex flex-col gap-4 border-t border-gray-100">
+
+                  <div className="flex gap-3 items-start pt-4">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      Orders placed through the QR table menu system are linked to your selected table number automatically.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      Once the kitchen starts preparing your order, cancellation or modification may not be possible.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      Delivery time may vary depending on restaurant rush hours and table service availability.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      GST, platform fees, and restaurant charges are included in the final payable amount.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      Please verify your ordered items carefully before proceeding to payment.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      Outside food or beverages are not permitted inside the restaurant premises.
+                    </p>
+
+                  </div>
+
+                  <div className="flex gap-3 items-start">
+
+                    <div className="min-w-[8px] h-[8px] rounded-full bg-orange-500 mt-2" />
+
+                    <p className="text-sm text-gray-600 leading-6">
+                      By placing the order, you agree to the restaurant's dining and service policies.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
 
           </div>
 

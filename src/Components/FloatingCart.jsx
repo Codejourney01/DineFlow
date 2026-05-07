@@ -1,16 +1,16 @@
 import React from "react";
-import { ShoppingBag } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../CartProvider";
 
 export default function FloatingCart() {
 
   const navigate = useNavigate();
+
   const location = useLocation();
 
   const { cartItems } = useCart();
 
-  // HIDE ON ORDER PAGE
+  // HIDE ON CHECKOUT PAGE
   if (location.pathname === "/checkout") {
     return null;
   }
@@ -43,12 +43,40 @@ export default function FloatingCart() {
         {/* LEFT */}
         <div className="flex items-center gap-3">
 
-          <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
+          {/* PRODUCT IMAGES */}
+          <div className="flex -space-x-3">
 
-            <ShoppingBag className="text-white" size={20} />
+            {cartItems.slice(0, 3).map((item) => (
+
+              <div
+                key={item.id}
+                className="w-11 h-11 rounded-full border-2 border-white overflow-hidden bg-white shadow-sm"
+              >
+
+                <img
+                  src={item.pimg}
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                />
+
+              </div>
+
+            ))}
+
+            {/* EXTRA ITEMS */}
+            {cartItems.length > 3 && (
+
+              <div className="w-11 h-11 rounded-full border-2 border-white bg-black text-white flex items-center justify-center text-xs font-semibold shadow-sm">
+
+                +{cartItems.length - 3}
+
+              </div>
+
+            )}
 
           </div>
 
+          {/* TEXT */}
           <div>
 
             <h3 className="text-white font-semibold text-sm">
