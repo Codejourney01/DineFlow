@@ -36,7 +36,7 @@ export default function Interface() {
       id: 2,
       pname: "Burger Meal Combo ",
       price: 500,
-      popular:false,
+      popular:true,
       ingredient: ["Burger", "Beverage"],
       pimg: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTXJgILZBjEU3_bZOCwqgFBXSdvaSBv9UGpCiiXmX8sVsYyAnIoZ0HVjfsqzCLEI6L3OjMP2Euwi4VS3k5G1JABOn8Hvtc-AXfJYi8-oqh1LpFt2fL-2JxQ",
     },
@@ -60,7 +60,7 @@ export default function Interface() {
       id: 5,
       pname: " Veg Frankie",
       price: 120,
-      popular:false,
+      popular:true,
       ingredient: ["Veggie", "Tasteful"],
       pimg: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTqrVJZyZGjkrB-pFAW_embNx6kR816NrmIbNDglP7LRZ4JFZVjBlWU7f0pDzRx-QgBZbpYBIQj0Shx5W8up-hL0Bbw_QZPekWzmH_tn_Lg",
     },{
