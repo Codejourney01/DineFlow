@@ -10,8 +10,18 @@ export default function FloatingCart() {
 
   const { cartItems } = useCart();
 
-  // HIDE ON CHECKOUT PAGE
-  if (location.pathname === "/order" || location.pathname==="/" || location.pathname==='/payment') {
+  // ROUTES WHERE FLOATING CART SHOULD HIDE
+  const hiddenRoutes = [
+    "/",
+    "/order",
+    "/payment",
+    "/receipt",
+  ];
+
+  // SMART CHECK
+  const shouldHideCart = hiddenRoutes.includes(location.pathname);
+
+  if (shouldHideCart) {
     return null;
   }
 
@@ -33,6 +43,7 @@ export default function FloatingCart() {
   );
 
   return (
+
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 md:left-auto md:right-5 md:translate-x-0 z-50 w-[92%] md:w-[360px]">
 
       <div
@@ -107,5 +118,6 @@ export default function FloatingCart() {
       </div>
 
     </div>
+
   );
 }
