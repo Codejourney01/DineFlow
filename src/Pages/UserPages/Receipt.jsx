@@ -6,6 +6,9 @@ import {
   Star,
 } from "lucide-react";
 
+// SOUND
+import successSound from "../../assets/success.mp3";
+
 export default function Receipt() {
 
   const [showTick, setShowTick] = useState(false);
@@ -14,7 +17,21 @@ export default function Receipt() {
   useEffect(() => {
 
     const timer = setTimeout(() => {
+
       setShowTick(true);
+
+      // PLAY SOUND
+      const audio = new Audio(successSound);
+
+      audio.volume = 0.5;
+
+      audio.play();
+
+      // MOBILE VIBRATION
+      if (navigator.vibrate) {
+        navigator.vibrate(120);
+      }
+
     }, 300);
 
     return () => clearTimeout(timer);

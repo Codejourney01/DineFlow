@@ -9,10 +9,11 @@ import NotFound from './Pages/NotFound';
 import CategoryPage from './Pages/UserPages/CategoryPage';
 import Checkout from './Pages/UserPages/Checkout';
 import Receipt from './Pages/UserPages/Receipt';
+import ScrollToTop from './Components/ScrolltoTop';
 export default function App() {
   return (
     <div>
-    
+        <ScrollToTop />
       <Routes>
 
 
