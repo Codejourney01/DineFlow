@@ -11,7 +11,7 @@ export default function FloatingCart() {
   const { cartItems } = useCart();
 
   // HIDE ON CHECKOUT PAGE
-  if (location.pathname === "/checkout" || location.pathname==="/") {
+  if (location.pathname === "/order" || location.pathname==="/" || location.pathname==='/payment') {
     return null;
   }
 
@@ -36,7 +36,7 @@ export default function FloatingCart() {
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 md:left-auto md:right-5 md:translate-x-0 z-50 w-[92%] md:w-[360px]">
 
       <div
-        onClick={() => navigate("/checkout")}
+        onClick={() => navigate("/order")}
         className="w-full bg-orange-500 rounded-2xl shadow-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-orange-600 transition"
       >
 

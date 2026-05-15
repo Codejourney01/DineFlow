@@ -173,7 +173,7 @@ export default function Interface() {
         </div>
         {filteredData.length === 0 && (
           <div className="w-full flex justify-center pt-10">
-            <h2 className="text-gray-400 text-lg">No food items found 🍕</h2>
+            <h2 className="text-gray-400 text-lg">No food items found </h2>
           </div>
         )}
 

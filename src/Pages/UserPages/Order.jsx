@@ -499,7 +499,7 @@ export default function Order() {
               </div>
 
               {/* BUTTON */}
-              <button className="w-full h-[48px] mt-6 rounded-xl bg-orange-500 hover:bg-orange-600 transition text-white text-sm font-semibold shadow-sm">
+              <button onClick={()=>{navigate('/payment')}} className="w-full h-[48px] mt-6 rounded-xl bg-orange-500 hover:bg-orange-600 transition text-white text-sm font-semibold shadow-sm">
 
                 Proceed To Payment
 
